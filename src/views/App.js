@@ -1,36 +1,27 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './App.scss'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { routes } from '../routes'
 
-import { bookingRoom } from '../api'
+function App() {
+  return (
+    <Router>
+      <Switch>
+        {routes.map((route, i) => {
+          return <RouteWithSubRoutes key={i} {...route} />
+        })}
+      </Switch>
+    </Router>
+  )
+}
 
-const booking = bookingRoom
-
-function App () {
-
-    useEffect(() => {
-    }, [])
-
-    const fetchBookingRoom = async () => {
-        const postData = {
-            'name': 'HELL',
-            'tel': '0987654321',
-            'date': ['2020-08-20', '2020-08-21']
-        }
-        const id = '3Elqe8kfMxdZv5xFLV4OUeN6jhmxIvQSTyj4eTgIowfIRvF4rerA2Nuegzc2Rgwu'
-
-        try {
-            const res = await booking(id, postData)
-            console.log(res)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    return (
-        <div className="App">
-            123
-        </div>
-    )
+function RouteWithSubRoutes(route) {
+  return (
+    <Route
+      path={route.path}
+      render={(props) => <route.component {...props} routes={route.routes} />}
+    />
+  )
 }
 
 export default App
