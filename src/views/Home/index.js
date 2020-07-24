@@ -13,7 +13,11 @@ function Home () {
                 <h1 className='home-logo'><Link to="/detail">WHITE INN</Link></h1>
                 <div className='home-container'>
                     <div className='home-rooms'>12345</div>
-                    <div className='home-footer'>45465465</div>
+                    <div className='home-footer'>
+                        <span className="material-icons" style={{fontSize: '21px'}}>location_on</span>
+                        <span className="material-icons" style={{fontSize: '21px'}}>phone</span>
+                        <span className="material-icons" style={{fontSize: '21px'}}>email</span>
+                    </div>
                 </div>
             </div>
         </div>
