@@ -2,10 +2,10 @@ import React from 'react'
 
 // import Detail from '../views/Detail'
 
-function withDetail (Component) {
-    return function DetailHoc () {
-        return <Component/>
-    }
+function withDetail(Component) {
+  return function DetailHoc(props) {
+    return <Component {...props} />
+  }
 }
 
 export default withDetail
@@ -14,16 +14,16 @@ export default withDetail
 // export default withDetail(Detail)
 
 /*
-* routes
-*
-* import Detail from 'service/Detail'
-*
-* {
-*    path: '/detail',
-*    component: Detail,
-*    exact: true,
-* },
-*
-*
-*
-* */
+ * routes
+ *
+ * import Detail from 'service/Detail'
+ *
+ * {
+ *    path: '/detail',
+ *    component: Detail,
+ *    exact: true,
+ * },
+ *
+ *
+ *
+ * */

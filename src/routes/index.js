@@ -10,7 +10,7 @@ export const routes = [
     exact: true,
   },
   {
-    path: '/detail',
+    path: '/detail?:roomId',
     component: Detail,
     exact: true,
   },
