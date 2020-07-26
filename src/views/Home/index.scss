@@ -1,18 +1,15 @@
 @import '../../assets/default.scss';
 
 .home {
-  width: 100%;
-  height: 100vh;
   background: linear-gradient($bg-primary 62.5%, $bg-secondary 37.5%);
 
   &-wrapper {
     max-width: 1280px;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     padding: 70px 96px 22px;
-    box-sizing: border-box;
 
     .home-logo {
       font-size: 80px;

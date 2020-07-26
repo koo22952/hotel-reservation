@@ -1,0 +1,60 @@
+@import '../../assets/default.scss';
+
+.detail {
+  background: linear-gradient($bg-secondary 18.2%, $bg-primary 18.2%);
+  &-wrapper {
+    display: flex;
+    height: 100vh;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 26px 52px 47px 90px;
+  }
+
+  &-left {
+    min-width: 38%;
+    &-logo {
+      font-size: 35px;
+      font-family: 'Amatic SC', cursive;
+      padding: 4px;
+      a {
+        color: $text-title;
+      }
+    }
+    &-pic {
+      height: calc(100% - 46px);
+      div,
+      span {
+        background-position: center center;
+        background-size: cover;
+      }
+      &_top {
+        height: 85%;
+        margin-bottom: 3px;
+      }
+      &_down {
+        height: 15%;
+        display: flex;
+        > span {
+          width: 100%;
+        }
+        :last-child {
+          margin-left: 3px;
+        }
+      }
+    }
+  }
+  &-right {
+    min-width: 62%;
+    padding-left: 29px;
+    // height: calc(100vh - 26px - 48px);
+    // padding: 26px 0 47px 90px;
+    &-rooms {
+      height: calc(100vh - 81.8% - 26px);
+      background-color: red;
+    }
+    &-roomInfo {
+      // height: 100%;
+      background-color: blue;
+    }
+  }
+}

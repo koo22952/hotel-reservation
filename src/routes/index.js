@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 export const routes = [
   {
     path: '/home',
-    component: Home,
+    component: Detail,
     exact: true,
   },
   {

@@ -16,7 +16,7 @@ function Home(props) {
     <div className="home">
       <div className="home-wrapper">
         <h1 className="home-logo">
-          <Link to="/detail">WHITE INN</Link>
+          <Link to="/home">WHITE INN</Link>
         </h1>
         <div className="home-container">
           <div className="home-room">
