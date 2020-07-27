@@ -2,6 +2,7 @@
 
 .detail {
   background: linear-gradient($bg-secondary 18.2%, $bg-primary 18.2%);
+
   &-wrapper {
     display: flex;
     height: 100vh;
@@ -11,50 +12,136 @@
   }
 
   &-left {
-    min-width: 38%;
+    min-width: 35%;
+
     &-logo {
       font-size: 35px;
       font-family: 'Amatic SC', cursive;
       padding: 4px;
+
       a {
         color: $text-title;
       }
     }
+
     &-pic {
       height: calc(100% - 46px);
+
       div,
       span {
         background-position: center center;
         background-size: cover;
       }
+
       &_top {
         height: 85%;
         margin-bottom: 3px;
       }
+
       &_down {
         height: 15%;
         display: flex;
+
         > span {
           width: 100%;
         }
+
         :last-child {
           margin-left: 3px;
         }
       }
     }
   }
+
   &-right {
-    min-width: 62%;
-    padding-left: 29px;
-    // height: calc(100vh - 26px - 48px);
-    // padding: 26px 0 47px 90px;
+    min-width: 65%;
+    padding-left: 27px;
+    height: calc(100% - 26px - 47px);
+
     &-rooms {
-      height: calc(100vh - 81.8% - 26px);
-      background-color: red;
+      height: 18.2%;
+      display: flex;
+      font-size: 14px;
+      align-items: flex-end;
+      padding-bottom: 14px;
+      padding-right: 7px;
+      padding-left: 2px;
+      justify-content: space-between;
+
     }
+
     &-roomInfo {
-      // height: 100%;
-      background-color: blue;
+      height: calc(81.8% + 47px + 26px);
+      padding: 36px 2px 0px;
+
+      &_title {
+        height: 15%;
+        display: flex;
+        justify-content: space-between;
+        color: $text-color2;
+
+        > h3 {
+          font-size: $font-size * 2;
+        }
+
+        > div {
+          display: flex;
+          justify-content: flex-end;
+          flex-direction: column;
+          margin-bottom: 19px;
+          line-height: 20px;
+
+          > span {
+            > b {
+              font-weight: 900;
+            }
+          }
+        }
+      }
+
+      &_detail {
+        height: 63%;
+        display: flex;
+
+        .room-detail {
+          flex: 1;
+
+          > p {
+            line-height: 22px;
+            margin-bottom: 20px;
+          }
+
+          > ul {
+            line-height: 20px;
+            color: $text-color2;
+          }
+        }
+
+        .room-reservation {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+
+      &_roomDevice {
+        height: 22%;
+        border-top: 1px solid $text-remind;
+        padding: 16.5px 1px 1px 2px;
+        color: $text-color2;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: space-between;
+        justify-content: space-between;
+        > span {
+          display: flex;
+          align-items: center;
+          .material-icons{
+            color: $text-remind;
+          }
+        }
+      }
     }
   }
 }
