@@ -5,15 +5,20 @@ import { bookingRoom } from '../../api'
 import './index.scss'
 
 import { DatePicker } from '@material-ui/pickers'
-import Input from '@material-ui/core/Input'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
-function Detail (props) {
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#b4b2b2' },
+  },
+})
 
+function Detail(props) {
   const fetchBookingRoom = async () => {
     const postData = {
       name: 'HELL',
       tel: '0987654321',
-      date: ['2020-08-20', '2020-08-21']
+      date: ['2020-08-20', '2020-08-21'],
     }
     const id =
       '3Elqe8kfMxdZv5xFLV4OUeN6jhmxIvQSTyj4eTgIowfIRvF4rerA2Nuegzc2Rgwu'
@@ -41,11 +46,11 @@ function Detail (props) {
           <div className="detail-left-pic">
             <div
               className="detail-left-pic_top"
-              style={{backgroundImage: `url(${url})`}}
+              style={{ backgroundImage: `url(${url})` }}
             />
             <div className="detail-left-pic_down">
-              <span style={{backgroundImage: `url(${url})`}}/>
-              <span style={{backgroundImage: `url(${url})`}}/>
+              <span style={{ backgroundImage: `url(${url})` }} />
+              <span style={{ backgroundImage: `url(${url})` }} />
             </div>
           </div>
         </div>
@@ -61,14 +66,22 @@ function Detail (props) {
             <div className="detail-right-roomInfo_title">
               <h3>Single Room</h3>
               <div>
-                <span>平日(一~四)價格：<b>1380</b></span>
-                <span>假日(五~日)價格：<b>1500</b></span>
+                <span>
+                  平日(一~四)價格：<b>1380</b>
+                </span>
+                <span>
+                  假日(五~日)價格：<b>1500</b>
+                </span>
               </div>
             </div>
-            <div className='detail-right-roomInfo_detail'>
+            <div className="detail-right-roomInfo_detail">
               <div className="room-detail">
                 <p>
-                  Single Room is only reserved for one guest. There is a bedroom with a single size bed and a private bathroom. Everything you need prepared for you: sheets and blankets, towels, soap and shampoo, hairdryer are provided. In the room there is AC and of course WiFi.
+                  Single Room is only reserved for one guest. There is a bedroom
+                  with a single size bed and a private bathroom. Everything you
+                  need prepared for you: sheets and blankets, towels, soap and
+                  shampoo, hairdryer are provided. In the room there is AC and
+                  of course WiFi.
                 </p>
                 <ul>
                   <li>房客人數限制： 1 人</li>
@@ -80,31 +93,53 @@ function Detail (props) {
                 </ul>
               </div>
               <div className="room-reservation">
-                <div className='startDate'>
-                  <DatePicker
-                    id={'datePicker'}
-                    disableToolbar
-                    inputVariant="outlined"
-
-                    variant="inline"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    format="yyyy/MM/dd"
-                    autoOk
-                    animateYearScrolling
-                    // renderDay={(selectedDate: selectedDate, dayInCurrentMonth: true) => { return}}
-                  />
-                  <div id='eeee'>
-                    <label htmlFor='datePicker'>
-                      45646546
-                    </label>
+                <div className="date-picker">
+                  <ThemeProvider theme={theme}>
+                    <DatePicker
+                      id={'start-date-picker'}
+                      disableToolbar
+                      inputVariant="outlined"
+                      variant="inline"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      format="yyyy/MM/dd"
+                      autoOk
+                      animateYearScrolling
+                    />
+                  </ThemeProvider>
+                  <div id={selectedDate ? 'isValue' : 'check-in'}>
+                    <i class="material-icons">event_available</i>
+                    <label htmlFor="start-date-picker">Check in</label>
+                  </div>
+                </div>
+                <div className="date-picker">
+                  <ThemeProvider theme={theme}>
+                    <DatePicker
+                      id={'end-date-Picker'}
+                      disableToolbar
+                      inputVariant="outlined"
+                      variant="inline"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      format="yyyy/MM/dd"
+                      autoOk
+                      animateYearScrolling
+                    />
+                  </ThemeProvider>
+                  <div id={selectedDate ? 'isValue' : 'check-out'}>
+                    <i class="material-icons">event_busy</i>
+                    <label htmlFor="end-date-Picker">Check out</label>
                   </div>
                 </div>
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
-              <span><i className="material-icons">check_box</i>wifi</span>
-              <span><i className="material-icons">check_box_outline_blank</i>早餐</span>
+              <span>
+                <i className="material-icons">check_box</i>wifi
+              </span>
+              <span>
+                <i className="material-icons">check_box_outline_blank</i>早餐
+              </span>
             </div>
           </div>
         </div>

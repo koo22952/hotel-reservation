@@ -67,7 +67,6 @@
       padding-right: 7px;
       padding-left: 2px;
       justify-content: space-between;
-
     }
 
     &-roomInfo {
@@ -121,6 +120,20 @@
           flex: 1;
           display: flex;
           justify-content: flex-end;
+          padding-left: 35px;
+          .MuiInputBase-input {
+            font-size: 20px;
+            height: 52px;
+            padding: 0px 18px;
+            color: $text-title;
+          }
+          .PrivateNotchedOutline-root-1,
+          .PrivateNotchedOutline-root-5 {
+            border-radius: 0;
+          }
+          .MuiOutlinedInput-notchedOutline {
+            border-color: $text-remind;
+          }
         }
       }
 
@@ -137,11 +150,36 @@
         > span {
           display: flex;
           align-items: center;
-          .material-icons{
+          .material-icons {
             color: $text-remind;
           }
         }
       }
     }
   }
+}
+
+.date-picker {
+  position: relative;
+  height: 52px;
+}
+.date-picker:last-child {
+  margin-left: 10px;
+}
+
+#check-in,
+#check-out {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 15px;
+  > i {
+    margin-right: 2px;
+  }
+}
+
+#isValue {
+  opacity: 0;
 }
