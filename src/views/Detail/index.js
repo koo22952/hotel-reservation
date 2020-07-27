@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import withDetail from '../../service/Detail'
 import { bookingRoom } from '../../api'
 import './index.scss'
 
+import { DatePicker } from '@material-ui/pickers'
+import Input from '@material-ui/core/Input'
+
 function Detail (props) {
+
   const fetchBookingRoom = async () => {
     const postData = {
       name: 'HELL',
@@ -21,6 +25,8 @@ function Detail (props) {
       console.error(err)
     }
   }
+
+  const [selectedDate, handleDateChange] = useState(null)
 
   const url =
     'https://images.unsplash.com/photo-1551776235-dde6d482980b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'
@@ -45,7 +51,6 @@ function Detail (props) {
         </div>
         <div className="detail-right">
           <div className="detail-right-rooms">
-            <span>Deluxe Single Room</span>
             <span>Deluxe Single Room</span>
             <span>Deluxe Single Room</span>
             <span>Double Room</span>
@@ -74,7 +79,28 @@ function Detail (props) {
                   <li>checkOut 時間：10:00</li>
                 </ul>
               </div>
-              <div className="room-reservation">5445654</div>
+              <div className="room-reservation">
+                <div className='startDate'>
+                  <DatePicker
+                    id={'datePicker'}
+                    disableToolbar
+                    inputVariant="outlined"
+
+                    variant="inline"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    format="yyyy/MM/dd"
+                    autoOk
+                    animateYearScrolling
+                    // renderDay={(selectedDate: selectedDate, dayInCurrentMonth: true) => { return}}
+                  />
+                  <div id='eeee'>
+                    <label htmlFor='datePicker'>
+                      45646546
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
               <span><i className="material-icons">check_box</i>wifi</span>
