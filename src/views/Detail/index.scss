@@ -123,34 +123,8 @@
           padding-left: 35px;
           flex-direction: column;
 
-          .MuiInputBase-input {
-            font-size: 20px;
-            color: $text-title;
-            padding: 0px 18px;
-            height: 52px;
-          }
-
-          .PrivateNotchedOutline-root-1,
-          .PrivateNotchedOutline-root-5 {
-            border-radius: 0;
-          }
-
-          .MuiOutlinedInput-notchedOutline {
-            border-color: $text-remind;
-          }
-
           &-date {
             display: flex;
-
-            .PrivateNotchedOutline-root-1,
-            .PrivateNotchedOutline-root-5 {
-              border-radius: 0;
-            }
-          }
-
-          &-input {
-            position: relative;
-            margin-bottom: 8px;
           }
 
           &-check {
@@ -177,9 +151,7 @@
               color: $text-color;
               border: 1px solid $text-color2;
             }
-
           }
-
         }
       }
 
@@ -206,34 +178,3 @@
     }
   }
 }
-
-.date-picker {
-  position: relative;
-  height: 52px;
-}
-
-.date-picker:last-child {
-  margin-left: 10px;
-}
-
-#check-in,
-#check-out,
-#label-phone,
-#label-name {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  left: 15px;
-  color: $text-remind;
-
-  > i {
-    margin-right: 2px;
-  }
-}
-
-#isValue {
-  opacity: 0;
-}
-

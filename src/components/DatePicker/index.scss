@@ -1,0 +1,44 @@
+@import '../../assets/default.scss';
+
+#date-picker {
+  position: relative;
+  height: 52px;
+  flex: 1;
+  .MuiInputBase-input {
+    font-size: 20px;
+    color: $text-title;
+    padding: 0px 18px;
+    height: 52px;
+  }
+
+  .PrivateNotchedOutline-root-1,
+  .PrivateNotchedOutline-root-5 {
+    border-radius: 0;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $text-remind;
+  }
+
+  #checkInOut {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 15px;
+    color: $text-remind;
+
+    > i {
+      margin-right: 2px;
+    }
+  }
+
+  #isValue {
+    opacity: 0;
+  }
+}
+
+#date-picker:last-child {
+  margin-left: 10px;
+}

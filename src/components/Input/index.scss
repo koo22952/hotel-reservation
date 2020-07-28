@@ -1,0 +1,36 @@
+@import '../../assets/default.scss';
+
+#room-reservation-input {
+  position: relative;
+  margin-bottom: 8px;
+
+  .MuiInputBase-input {
+    font-size: 20px;
+    color: $text-title;
+    padding: 0px 18px;
+    height: 52px;
+  }
+
+  .PrivateNotchedOutline-root-1,
+  .PrivateNotchedOutline-root-5 {
+    border-radius: 0;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $text-remind;
+  }
+}
+
+#input-label {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 15px;
+  color: $text-remind;
+  text-transform: capitalize;
+  > i {
+    margin-right: 2px;
+  }
+}

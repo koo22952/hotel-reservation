@@ -6,7 +6,7 @@ import './index.scss'
 function Home(props) {
   const webInfo = [
     { icon: 'location_on', content: '台北市ＯＯ區ＯＯ街123號' },
-    { icon: 'phone', content: '12345-6789' },
+    { icon: 'tel', content: '12345-6789' },
     { icon: 'email', content: 'abcd@efghijk.com' },
   ]
 
