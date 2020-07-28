@@ -12,7 +12,7 @@
   }
 
   &-left {
-    min-width: 35%;
+    min-width: 40%;
 
     &-logo {
       font-size: 35px;
@@ -54,7 +54,7 @@
   }
 
   &-right {
-    min-width: 65%;
+    min-width: 60%;
     padding-left: 27px;
     height: calc(100% - 26px - 47px);
 
@@ -119,21 +119,67 @@
         .room-reservation {
           flex: 1;
           display: flex;
-          justify-content: flex-end;
+          align-items: flex-end;
           padding-left: 35px;
+          flex-direction: column;
+
           .MuiInputBase-input {
             font-size: 20px;
-            height: 52px;
-            padding: 0px 18px;
             color: $text-title;
+            padding: 0px 18px;
+            height: 52px;
           }
+
           .PrivateNotchedOutline-root-1,
           .PrivateNotchedOutline-root-5 {
             border-radius: 0;
           }
+
           .MuiOutlinedInput-notchedOutline {
             border-color: $text-remind;
           }
+
+          &-date {
+            display: flex;
+
+            .PrivateNotchedOutline-root-1,
+            .PrivateNotchedOutline-root-5 {
+              border-radius: 0;
+            }
+          }
+
+          &-input {
+            position: relative;
+            margin-bottom: 8px;
+          }
+
+          &-check {
+            margin-top: 8px;
+            height: 52px;
+            width: calc(100% / 2 - 5px);
+            padding: 0;
+            background-color: $text-remind;
+            border: 0px;
+            color: $bg-primary;
+            font-size: $font-size;
+            cursor: pointer;
+
+            &:focus {
+              outline: none;
+            }
+
+            &:hover {
+              background-color: $text-color;
+            }
+
+            &:active {
+              background-color: rgba(0, 0, 0, 0);
+              color: $text-color;
+              border: 1px solid $text-color2;
+            }
+
+          }
+
         }
       }
 
@@ -147,9 +193,11 @@
         flex-wrap: wrap;
         align-content: space-between;
         justify-content: space-between;
+
         > span {
           display: flex;
           align-items: center;
+
           .material-icons {
             color: $text-remind;
           }
@@ -163,18 +211,23 @@
   position: relative;
   height: 52px;
 }
+
 .date-picker:last-child {
   margin-left: 10px;
 }
 
 #check-in,
-#check-out {
+#check-out,
+#label-phone,
+#label-name {
   display: flex;
   align-items: center;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
   left: 15px;
+  color: $text-remind;
+
   > i {
     margin-right: 2px;
   }
@@ -183,3 +236,4 @@
 #isValue {
   opacity: 0;
 }
+

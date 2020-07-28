@@ -5,20 +5,22 @@ import { bookingRoom } from '../../api'
 import './index.scss'
 
 import { DatePicker } from '@material-ui/pickers'
+import TextField from '@material-ui/core/TextField'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import FormControl from '@material-ui/core/FormControl'
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#b4b2b2' },
-  },
+    primary: {main: '#b4b2b2'}
+  }
 })
 
-function Detail(props) {
+function Detail (props) {
   const fetchBookingRoom = async () => {
     const postData = {
       name: 'HELL',
       tel: '0987654321',
-      date: ['2020-08-20', '2020-08-21'],
+      date: ['2020-08-20', '2020-08-21']
     }
     const id =
       '3Elqe8kfMxdZv5xFLV4OUeN6jhmxIvQSTyj4eTgIowfIRvF4rerA2Nuegzc2Rgwu'
@@ -46,11 +48,11 @@ function Detail(props) {
           <div className="detail-left-pic">
             <div
               className="detail-left-pic_top"
-              style={{ backgroundImage: `url(${url})` }}
+              style={{backgroundImage: `url(${url})`}}
             />
             <div className="detail-left-pic_down">
-              <span style={{ backgroundImage: `url(${url})` }} />
-              <span style={{ backgroundImage: `url(${url})` }} />
+              <span style={{backgroundImage: `url(${url})`}}/>
+              <span style={{backgroundImage: `url(${url})`}}/>
             </div>
           </div>
         </div>
@@ -93,44 +95,57 @@ function Detail(props) {
                 </ul>
               </div>
               <div className="room-reservation">
-                <div className="date-picker">
-                  <ThemeProvider theme={theme}>
-                    <DatePicker
-                      id={'start-date-picker'}
-                      disableToolbar
-                      inputVariant="outlined"
-                      variant="inline"
-                      value={selectedDate}
-                      onChange={handleDateChange}
-                      format="yyyy/MM/dd"
-                      autoOk
-                      animateYearScrolling
-                    />
-                  </ThemeProvider>
-                  <div id={selectedDate ? 'isValue' : 'check-in'}>
-                    <i class="material-icons">event_available</i>
-                    <label htmlFor="start-date-picker">Check in</label>
+                <FormControl className="room-reservation-input" fullWidth noValidate autoComplete="off">
+                  <TextField id="input-name" variant="outlined"/>
+                  <label id={'label-name'} htmlFor="input-name">
+                    <i className="material-icons">person</i>Name
+                  </label>
+                </FormControl>
+                <FormControl className="room-reservation-input" fullWidth noValidate autoComplete="off">
+                  <TextField id="input-phone" variant="outlined"/>
+                  <label id={'label-phone'} htmlFor="input-phone">
+                    <i className="material-icons">local_phone</i>Phone
+                  </label>
+                </FormControl>
+                <div className='room-reservation-date'>
+                  <div className="date-picker">
+                    <ThemeProvider theme={theme}>
+                      <DatePicker
+                        id={'start-date-picker'}
+                        disableToolbar
+                        inputVariant="outlined"
+                        variant="inline"
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        format="yyyy/MM/dd"
+                        autoOk
+                        animateYearScrolling
+                      />
+                    </ThemeProvider>
+                    <label id={selectedDate ? 'isValue' : 'check-in'} htmlFor="start-date-picker">
+                      <i className="material-icons">event_available</i>Check in
+                    </label>
+                  </div>
+                  <div className="date-picker">
+                    <ThemeProvider theme={theme}>
+                      <DatePicker
+                        id={'end-date-Picker'}
+                        disableToolbar
+                        inputVariant="outlined"
+                        variant="inline"
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        format="yyyy/MM/dd"
+                        autoOk
+                        animateYearScrolling
+                      />
+                    </ThemeProvider>
+                    <label id={selectedDate ? 'isValue' : 'check-out'} htmlFor="end-date-Picker">
+                      <i className="material-icons">event_busy</i>Check out
+                    </label>
                   </div>
                 </div>
-                <div className="date-picker">
-                  <ThemeProvider theme={theme}>
-                    <DatePicker
-                      id={'end-date-Picker'}
-                      disableToolbar
-                      inputVariant="outlined"
-                      variant="inline"
-                      value={selectedDate}
-                      onChange={handleDateChange}
-                      format="yyyy/MM/dd"
-                      autoOk
-                      animateYearScrolling
-                    />
-                  </ThemeProvider>
-                  <div id={selectedDate ? 'isValue' : 'check-out'}>
-                    <i class="material-icons">event_busy</i>
-                    <label htmlFor="end-date-Picker">Check out</label>
-                  </div>
-                </div>
+                <button className='room-reservation-check'>預約</button>
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
