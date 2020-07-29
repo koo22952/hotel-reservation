@@ -6,8 +6,8 @@ import './index.scss'
 import DatePicker from '../../components/DatePicker'
 import Input from '../../components/Input'
 
-function Detail(props) {
-  const { startDate, endDate, handleDateChange } = props
+function Detail (props) {
+  const {startDate, endDate, minDate, handleDateChange, handleInputChange, bookingInfo} = props
 
   const url =
     'https://images.unsplash.com/photo-1551776235-dde6d482980b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'
@@ -22,11 +22,11 @@ function Detail(props) {
           <div className="detail-left-pic">
             <div
               className="detail-left-pic_top"
-              style={{ backgroundImage: `url(${url})` }}
+              style={{backgroundImage: `url(${url})`}}
             />
             <div className="detail-left-pic_down">
-              <span style={{ backgroundImage: `url(${url})` }} />
-              <span style={{ backgroundImage: `url(${url})` }} />
+              <span style={{backgroundImage: `url(${url})`}}/>
+              <span style={{backgroundImage: `url(${url})`}}/>
             </div>
           </div>
         </div>
@@ -69,18 +69,20 @@ function Detail(props) {
                 </ul>
               </div>
               <div className="room-reservation">
-                <Input type="person" />
-                <Input type="phone" />
+                <Input type="person" handleInputChange={handleInputChange} value={bookingInfo.person}/>
+                <Input type="phone" handleInputChange={handleInputChange} value={bookingInfo.phone}/>
                 <div className="room-reservation-date">
                   <DatePicker
                     selectedDate={startDate}
                     handleDateChange={handleDateChange}
                     checkInOut={true}
+                    minDate={minDate}
                   />
                   <DatePicker
                     selectedDate={endDate}
                     handleDateChange={handleDateChange}
                     checkInOut={false}
+                    minDate={minDate}
                   />
                 </div>
                 <button className="room-reservation-check">預約</button>

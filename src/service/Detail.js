@@ -1,20 +1,22 @@
 import React from 'react'
 import { bookingRoom } from '../api'
+import { format } from 'date-fns'
 
-function withDetail(Component) {
+function withDetail (Component) {
   return class extends React.Component {
     state = {
       romeId: '',
-      bookingInfo: { name: '', tel: '', date: [] },
+      bookingInfo: {person: '', phone: '', date: []},
       startDate: null,
       endDate: null,
+      minDate: null
     }
 
     fetchBookingRoom = async () => {
       const postData = {
         name: 'HELL',
         tel: '0987654321',
-        date: ['2020-08-20', '2020-08-21'],
+        date: ['2020-08-20', '2020-08-21']
       }
       const id =
         '3Elqe8kfMxdZv5xFLV4OUeN6jhmxIvQSTyj4eTgIowfIRvF4rerA2Nuegzc2Rgwu'
@@ -28,20 +30,38 @@ function withDetail(Component) {
     }
 
     handleDateChange = (val, checkInOut) => {
+
+      const formatDate = format(val, 'yyyy-MM-dd')
+
       if (checkInOut) {
         this.setState({
-          startDate: val,
+          startDate: formatDate,
+          minDate: formatDate
         })
       } else {
         this.setState({
-          endDate: val,
+          endDate: formatDate
         })
       }
     }
 
-    render() {
+    handleInputChange = (e, type) => {
+      const val = e.target.value
+
+      this.setState((prevState) => {
+        return {
+          bookingInfo: {
+            ...prevState.bookingInfo,
+            [type]: val
+          }
+        }
+      })
+    }
+
+    render () {
       return (
         <Component
+          handleInputChange={this.handleInputChange}
           handleDateChange={this.handleDateChange}
           {...this.state}
           {...this.props}

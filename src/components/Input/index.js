@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import './index.scss'
+import { format } from 'date-fns'
 
-function Input(props) {
-  const [tel, setTel] = useState('')
+function Input (props) {
   const [flag, setFlag] = useState(false)
 
   const onFocus = () => {
@@ -15,11 +15,7 @@ function Input(props) {
     setFlag(false)
   }
 
-  const handleInputChange = (e) => {
-    setTel(e.target.value)
-    console.log(e.target.value)
-  }
-  const { type } = props
+  const {type, handleInputChange, value} = props
 
   return (
     <FormControl
@@ -33,10 +29,10 @@ function Input(props) {
         variant="outlined"
         onFocus={onFocus}
         onBlur={onBlur}
-        value={tel}
-        onChange={handleInputChange}
+        defaultValue={value}
+        onChange={(e) => handleInputChange(e, type)}
       />
-      {flag ? null : (
+      {flag || value ? null : (
         <label id={'input-label'} htmlFor={type}>
           <i className="material-icons">{type}</i>
           {type}

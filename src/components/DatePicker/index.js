@@ -2,17 +2,19 @@ import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { DatePicker } from '@material-ui/pickers'
 import './index.scss'
+import { startOfTomorrow, addDays } from 'date-fns'
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#b4b2b2' },
-  },
+    primary: {main: '#b4b2b2'}
+  }
 })
 
 class Picker extends React.Component {
-  render() {
+
+  render () {
     // checkInOut true：In；false：Out
-    const { selectedDate, checkInOut, handleDateChange } = this.props
+    const {selectedDate, checkInOut, handleDateChange, minDate} = this.props
 
     return (
       <div id="date-picker">
@@ -27,6 +29,8 @@ class Picker extends React.Component {
             format="yyyy/MM/dd"
             autoOk
             animateYearScrolling
+            maxDate={addDays(new Date(), 90)}
+            minDate={checkInOut ? startOfTomorrow() : minDate ? minDate : startOfTomorrow()}
           />
         </ThemeProvider>
         {checkInOut ? (
