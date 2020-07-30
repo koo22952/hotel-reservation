@@ -1,22 +1,23 @@
 import React from 'react'
-import { bookingRoom } from '../api'
+import { bookingRoom, getOneRoom } from '../api'
 import { format } from 'date-fns'
 
-function withDetail (Component) {
+function withDetail(Component) {
   return class extends React.Component {
     state = {
-      romeId: '',
-      bookingInfo: {person: '', phone: '', date: []},
+      room: [],
+      booking: [],
+      bookingInfo: { person: '', phone: '', date: [] },
       startDate: null,
       endDate: null,
-      minDate: null
+      minDate: null,
     }
 
     fetchBookingRoom = async () => {
       const postData = {
         name: 'HELL',
         tel: '0987654321',
-        date: ['2020-08-20', '2020-08-21']
+        date: ['2020-08-20', '2020-08-21'],
       }
       const id =
         '3Elqe8kfMxdZv5xFLV4OUeN6jhmxIvQSTyj4eTgIowfIRvF4rerA2Nuegzc2Rgwu'
@@ -29,18 +30,41 @@ function withDetail (Component) {
       }
     }
 
-    handleDateChange = (val, checkInOut) => {
+    fetchGetOneRoom = async (id) => {
+      try {
+        const res = await getOneRoom(id)
+        const { booking, room, success } = res.data
 
+        let key = Object.keys(room[0].amenities)
+        let val = Object.values(room[0].amenities)
+
+        room[0].amenities = key.map((device, i) => {
+          return {
+            device,
+            isHave: val[i],
+          }
+        })
+
+        this.setState({
+          room: room[0],
+          booking,
+        })
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    handleDateChange = (val, checkInOut) => {
       const formatDate = format(val, 'yyyy-MM-dd')
 
       if (checkInOut) {
         this.setState({
           startDate: formatDate,
-          minDate: formatDate
+          minDate: formatDate,
         })
       } else {
         this.setState({
-          endDate: formatDate
+          endDate: formatDate,
         })
       }
     }
@@ -52,13 +76,38 @@ function withDetail (Component) {
         return {
           bookingInfo: {
             ...prevState.bookingInfo,
-            [type]: val
-          }
+            [type]: val,
+          },
         }
       })
     }
 
-    render () {
+    componentDidMount() {
+      const { params } = this.props.match
+
+      this.etchGetOneRoom(params.roomId)
+
+      // getOneRoom(params.roomId).then((res) => {
+      //   const { booking, room, success } = res.data
+
+      //   let key = Object.keys(room[0].amenities)
+      //   let val = Object.values(room[0].amenities)
+
+      //   room[0].amenities = key.map((device, i) => {
+      //     return {
+      //       device,
+      //       isHave: val[i],
+      //     }
+      //   })
+
+      //   this.setState({
+      //     room: room[0],
+      //     booking,
+      //   })
+      // })
+    }
+
+    render() {
       return (
         <Component
           handleInputChange={this.handleInputChange}

@@ -25,8 +25,9 @@ function Home(props) {
                 <Link
                   to={{
                     pathname: `/detail?${info.id}`,
+                    roomsInfo,
+                    roomId: info.id,
                   }}
-                  key={info.id}
                 >
                   <div
                     className="home-room-pic"

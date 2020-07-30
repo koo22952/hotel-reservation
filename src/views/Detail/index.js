@@ -6,8 +6,22 @@ import './index.scss'
 import DatePicker from '../../components/DatePicker'
 import Input from '../../components/Input'
 
-function Detail (props) {
-  const {startDate, endDate, minDate, handleDateChange, handleInputChange, bookingInfo} = props
+function Detail(props) {
+  const {
+    startDate,
+    endDate,
+    minDate,
+    handleDateChange,
+    handleInputChange,
+    bookingInfo,
+    room,
+    location,
+    match,
+  } = props
+
+  const { roomsInfo } = location
+  const { params } = match
+  console.log(room)
 
   const url =
     'https://images.unsplash.com/photo-1551776235-dde6d482980b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'
@@ -22,21 +36,20 @@ function Detail (props) {
           <div className="detail-left-pic">
             <div
               className="detail-left-pic_top"
-              style={{backgroundImage: `url(${url})`}}
+              style={{ backgroundImage: `url(${url})` }}
             />
             <div className="detail-left-pic_down">
-              <span style={{backgroundImage: `url(${url})`}}/>
-              <span style={{backgroundImage: `url(${url})`}}/>
+              <span style={{ backgroundImage: `url(${url})` }} />
+              <span style={{ backgroundImage: `url(${url})` }} />
             </div>
           </div>
         </div>
         <div className="detail-right">
           <div className="detail-right-rooms">
-            <span>Deluxe Single Room</span>
-            <span>Deluxe Single Room</span>
-            <span>Double Room</span>
-            <span>Double Room</span>
-            <span>Double Room</span>
+            {roomsInfo.map((room) => {
+              if (room.id == params.roomId) return
+              return <span key={room.id}>{room.name}</span>
+            })}
           </div>
           <div className="detail-right-roomInfo">
             <div className="detail-right-roomInfo_title">
@@ -69,8 +82,16 @@ function Detail (props) {
                 </ul>
               </div>
               <div className="room-reservation">
-                <Input type="person" handleInputChange={handleInputChange} value={bookingInfo.person}/>
-                <Input type="phone" handleInputChange={handleInputChange} value={bookingInfo.phone}/>
+                <Input
+                  type="person"
+                  handleInputChange={handleInputChange}
+                  value={bookingInfo.person}
+                />
+                <Input
+                  type="phone"
+                  handleInputChange={handleInputChange}
+                  value={bookingInfo.phone}
+                />
                 <div className="room-reservation-date">
                   <DatePicker
                     selectedDate={startDate}
@@ -89,12 +110,21 @@ function Detail (props) {
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
-              <span>
-                <i className="material-icons">check_box</i>wifi
-              </span>
-              <span>
-                <i className="material-icons">check_box_outline_blank</i>早餐
-              </span>
+              {room.length
+                ? room[0].amenities.map((d, i) => {
+                    let icon = ''
+                    d.isHave
+                      ? (icon = 'check_box')
+                      : (icon = 'check_box_outline_blank')
+
+                    return (
+                      <span key={i}>
+                        <i className="material-icons">{icon}</i>
+                        {d.device}
+                      </span>
+                    )
+                  })
+                : null}
             </div>
           </div>
         </div>

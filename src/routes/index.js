@@ -9,16 +9,20 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 export const routes = [
   {
     path: '/home',
-    component: () => <MuiPickersUtilsProvider utils={DateFnsUtils}>< Detail/></MuiPickersUtilsProvider>,
-    exact: true
+    component: Home,
+    exact: true,
   },
   {
     path: '/detail?:roomId',
-    component: Detail,
-    exact: true
+    component: (props) => (
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Detail {...props} />
+      </MuiPickersUtilsProvider>
+    ),
+    exact: true,
   },
   {
     path: '/',
-    component: () => <Redirect to="/home"/>
-  }
+    component: () => <Redirect to="/home" />,
+  },
 ]
