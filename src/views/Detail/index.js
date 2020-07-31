@@ -6,7 +6,7 @@ import './index.scss'
 import DatePicker from '../../components/DatePicker'
 import Input from '../../components/Input'
 
-function Detail(props) {
+function Detail (props) {
   const {
     startDate,
     endDate,
@@ -16,15 +16,14 @@ function Detail(props) {
     bookingInfo,
     room,
     location,
-    match,
+    match
   } = props
 
-  const { roomsInfo } = location
-  const { params } = match
-  console.log(room)
-
-  const url =
-    'https://images.unsplash.com/photo-1551776235-dde6d482980b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80'
+  const {params} = match
+  const {roomsInfo} = location.state
+  const GuestLimit = room.descriptionShort?.GuestMax === room.descriptionShort?.GuestMin ? room.descriptionShort?.GuestMax : room.descriptionShort?.GuestMin
+    + '~' +
+    room.descriptionShort?.GuestMax
 
   return (
     <div className="detail">
@@ -33,16 +32,19 @@ function Detail(props) {
           <h2 className="detail-left-logo">
             <Link to="/home">WHITE INN</Link>
           </h2>
-          <div className="detail-left-pic">
-            <div
-              className="detail-left-pic_top"
-              style={{ backgroundImage: `url(${url})` }}
-            />
-            <div className="detail-left-pic_down">
-              <span style={{ backgroundImage: `url(${url})` }} />
-              <span style={{ backgroundImage: `url(${url})` }} />
-            </div>
-          </div>
+          {
+            room.imageUrl == undefined ? null : (
+              <div className="detail-left-pic">
+                <div
+                  className="detail-left-pic_top"
+                  style={{backgroundImage: `url(${room.imageUrl[0]})`}}
+                />
+                <div className="detail-left-pic_down">
+                  <span style={{backgroundImage: `url(${room.imageUrl[1]})`}}/>
+                  <span style={{backgroundImage: `url(${room.imageUrl[2]})`}}/>
+                </div>
+              </div>)
+          }
         </div>
         <div className="detail-right">
           <div className="detail-right-rooms">
@@ -53,32 +55,28 @@ function Detail(props) {
           </div>
           <div className="detail-right-roomInfo">
             <div className="detail-right-roomInfo_title">
-              <h3>Single Room</h3>
+              <h3>{room.name}</h3>
               <div>
                 <span>
-                  平日(一~四)價格：<b>1380</b>
+                  平日(一~四)價格：<b>{room.normalDayPrice}</b>
                 </span>
                 <span>
-                  假日(五~日)價格：<b>1500</b>
+                  假日(五~日)價格：<b>{room.holidayPrice}</b>
                 </span>
               </div>
             </div>
             <div className="detail-right-roomInfo_detail">
               <div className="room-detail">
                 <p>
-                  Single Room is only reserved for one guest. There is a bedroom
-                  with a single size bed and a private bathroom. Everything you
-                  need prepared for you: sheets and blankets, towels, soap and
-                  shampoo, hairdryer are provided. In the room there is AC and
-                  of course WiFi.
+                  {room.description}
                 </p>
                 <ul>
-                  <li>房客人數限制： 1 人</li>
-                  <li>床型：單人床</li>
-                  <li>衛浴數量： 1 間</li>
-                  <li>房間大小： 18 平方公尺</li>
-                  <li>checkIn 時間：15:00~21:00</li>
-                  <li>checkOut 時間：10:00</li>
+                  <li>{`房客人數限制： ${GuestLimit} 人`}</li>
+                  <li>{`床型：${room.descriptionShort?.Bed[0]}`}</li>
+                  <li>{`衛浴數量： ${room.descriptionShort?.['Private-Bath']} 間`}</li>
+                  <li>{`房間大小： ${room.descriptionShort?.Footage} 平方公尺`}</li>
+                  <li>{`checkIn 時間：${room.checkInAndOut?.checkInEarly}~${room.checkInAndOut?.checkInLate}`}</li>
+                  <li>{`checkOut 時間：${room.checkInAndOut?.checkOut}`}</li>
                 </ul>
               </div>
               <div className="room-reservation">
@@ -110,20 +108,20 @@ function Detail(props) {
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
-              {room.length
-                ? room[0].amenities.map((d, i) => {
-                    let icon = ''
-                    d.isHave
-                      ? (icon = 'check_box')
-                      : (icon = 'check_box_outline_blank')
+              {room.amenities !== undefined
+                ? room.amenities.map((d, i) => {
+                  let icon = ''
+                  d.isHave
+                    ? (icon = 'check_box')
+                    : (icon = 'check_box_outline_blank')
 
-                    return (
-                      <span key={i}>
+                  return (
+                    <span key={i}>
                         <i className="material-icons">{icon}</i>
-                        {d.device}
+                      {d.device}
                       </span>
-                    )
-                  })
+                  )
+                })
                 : null}
             </div>
           </div>

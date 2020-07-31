@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import withHome from '../../service/Home'
 import './index.scss'
 
-function Home(props) {
+function Home (props) {
   const webInfo = [
-    { icon: 'location_on', content: '台北市ＯＯ區ＯＯ街123號' },
-    { icon: 'tel', content: '12345-6789' },
-    { icon: 'email', content: 'abcd@efghijk.com' },
+    {icon: 'location_on', content: '台北市ＯＯ區ＯＯ街123號'},
+    {icon: 'tel', content: '12345-6789'},
+    {icon: 'email', content: 'abcd@efghijk.com'}
   ]
 
-  const { roomsInfo } = props
+  const {roomsInfo} = props
 
   return (
     <div className="home">
@@ -24,14 +24,14 @@ function Home(props) {
               return (
                 <Link
                   to={{
-                    pathname: `/detail?${info.id}`,
-                    roomsInfo,
-                    roomId: info.id,
+                    pathname: `/detail/${info.id}`,
+                    state: {roomsInfo}
                   }}
+                  key={info.id}
                 >
                   <div
                     className="home-room-pic"
-                    style={{ backgroundImage: `url(${info.imageUrl})` }}
+                    style={{backgroundImage: `url(${info.imageUrl})`}}
                   ></div>
                   <div className="home-room-info">
                     <h3>{info.name}</h3>

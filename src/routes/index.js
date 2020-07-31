@@ -13,13 +13,12 @@ export const routes = [
     exact: true,
   },
   {
-    path: '/detail?:roomId',
+    path: '/detail/:roomId',
     component: (props) => (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Detail {...props} />
       </MuiPickersUtilsProvider>
     ),
-    exact: true,
   },
   {
     path: '/',
