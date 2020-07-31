@@ -2,7 +2,8 @@ import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { DatePicker } from '@material-ui/pickers'
 import './index.scss'
-import { startOfTomorrow, addDays } from 'date-fns'
+import { startOfTomorrow, addDays, format } from 'date-fns'
+
 
 const theme = createMuiTheme({
   palette: {
@@ -31,22 +32,35 @@ class Picker extends React.Component {
             animateYearScrolling
             maxDate={addDays(new Date(), 90)}
             minDate={checkInOut ? startOfTomorrow() : minDate ? minDate : startOfTomorrow()}
-          />
-        </ThemeProvider>
-        {checkInOut ? (
-          <label id={selectedDate ? 'isValue' : 'checkInOut'} htmlFor="in">
-            <i className="material-icons">event_available</i>
-            Check in
-          </label>
-        ) : (
-          <label id={selectedDate ? 'isValue' : 'checkInOut'} htmlFor="out">
-            <i className="material-icons">event_busy</i>
-            Check out
-          </label>
-        )}
-      </div>
-    )
-  }
-}
+            renderDay={(date, selectedDate, dayInCurrentMonth, dayComponent) => {
+              if (['2020/08/14', '2020/08/20'].includes(format(date, 'yyyy/MM/dd'))) {
+                return (
+                  <div id={'gggggggggggggggg'}>
+                    {dayComponent}
+                  </div>)
+              }
 
-export default Picker
+              return dayComponent
+            }}
+          />
+          <
+            /ThemeProvider>
+            {
+              checkInOut ? (
+                <label id={selectedDate ? 'isValue' : 'checkInOut'} htmlFor="in">
+                  <i className="material-icons">event_available</i>
+                  Check in
+                </label>
+              ) : (
+                <label id={selectedDate ? 'isValue' : 'checkInOut'} htmlFor="out">
+                  <i className="material-icons">event_busy</i>
+                  Check out
+                </label>
+              )
+            }
+      </div>
+  )
+  }
+  }
+
+  export default Picker
