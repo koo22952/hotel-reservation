@@ -2,7 +2,6 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import withDetail from '../../service/Detail'
 import './index.scss'
-
 import DatePicker from '../../components/DatePicker'
 import Input from '../../components/Input'
 
@@ -15,7 +14,9 @@ function Detail (props) {
     handleInputChange,
     bookingInfo,
     room,
-    roomsInfo
+    roomsInfo,
+    booking,
+    bookingDate
   } = props
 
   const params = useParams()
@@ -107,12 +108,14 @@ function Detail (props) {
                     handleDateChange={handleDateChange}
                     checkInOut={true}
                     minDate={minDate}
+                    bookedDate={bookingDate}
                   />
                   <DatePicker
                     selectedDate={endDate}
                     handleDateChange={handleDateChange}
                     checkInOut={false}
                     minDate={minDate}
+                    bookedDate={bookingDate}
                   />
                 </div>
                 <button className="room-reservation-check">預約</button>
@@ -138,8 +141,28 @@ function Detail (props) {
           </div>
         </div>
       </div>
+      <Modal {...props}/>
     </div>
   )
 }
 
+const Modal = (props) => {
+  return (
+    <div className='modal'>
+      <div className='modal-bg'/>
+      <div className='modal-wrapper'>
+        <div className='modal-content'>
+          <h3>Single Room</h3>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  )
+}
 export default withDetail(Detail)
+
+
+
+
+
+

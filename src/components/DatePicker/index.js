@@ -38,7 +38,7 @@ class Picker extends React.Component {
             maxDate={addDays(new Date(), 90)}
             minDate={checkInOut ? startOfTomorrow() : minDate ? minDate : startOfTomorrow()}
             renderDay={(date, selectedDate, dayInCurrentMonth, dayComponent) => {
-              if (bookedDate.includes(format(date, 'yyyy/MM/dd'))) {
+              if (bookedDate.includes(format(date, 'yyyy-MM-dd'))) {
                 return (
                   <div style={{textDecoration: 'line-through', textDecorationColor: 'rgba(0, 0, 0, 0.38)'}}>
                     {dayComponent}
@@ -47,7 +47,7 @@ class Picker extends React.Component {
 
               return dayComponent
             }}
-            shouldDisableDate={(date) => bookedDate.includes(format(date, 'yyyy/MM/dd'))}
+            shouldDisableDate={(date) => bookedDate.includes(format(date, 'yyyy-MM-dd'))}
           />
         </ThemeProvider>
         {

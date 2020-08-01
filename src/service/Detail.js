@@ -7,6 +7,7 @@ function withDetail (Component) {
     state = {
       room: [],
       booking: [],
+      bookingDate: [],
       roomsInfo: [],
       bookingInfo: {person: '', phone: '', date: []},
       startDate: null,
@@ -34,7 +35,7 @@ function withDetail (Component) {
     fetchGetOneRoom = async (id) => {
       try {
         const res = await getOneRoom(id)
-        const {booking, room, success} = res
+        const {booking, room} = res
 
         let key = Object.keys(room[0].amenities)
         let val = Object.values(room[0].amenities)
@@ -46,9 +47,12 @@ function withDetail (Component) {
           }
         })
 
+        let bookingDate = booking.map(item => item.date)
+
         this.setState({
           room: room[0],
-          booking
+          booking,
+          bookingDate
         })
       } catch (err) {
         alert(err.response.data.message)
@@ -97,7 +101,15 @@ function withDetail (Component) {
       const {params: prevParams} = prevProps.match
 
       if (params.roomId !== prevParams.roomId) {
-        this.fetchGetOneRoom(params.roomId)
+        this.setState({
+          startDate: null,
+          endDate: null,
+          minDate: null
+        }, () => {
+          this.fetchGetOneRoom(params.roomId)
+
+        })
+
       }
 
     }
