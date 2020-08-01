@@ -5,37 +5,37 @@ const baseURL = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer c7j76s3M5TLXvy5bRjVAU3vur0l8UEv6CYSARpn7SJ3hRz1wcj4ds39XCOWD',
+      'Bearer c7j76s3M5TLXvy5bRjVAU3vur0l8UEv6CYSARpn7SJ3hRz1wcj4ds39XCOWD'
   },
-  timeout: 60000,
+  timeout: 60000
 })
 
-export function getAllRooms() {
+export function getAllRooms () {
   return baseURL({
     url: '/rooms',
-    method: 'get',
+    method: 'get'
   })
 }
 
-export function getOneRoom(id) {
+export function getOneRoom (id) {
   return baseURL({
     url: '/room/' + id,
-    method: 'get',
+    method: 'get'
   })
 }
 
-export function bookingRoom(id, data) {
+export function bookingRoom (id, data) {
   return baseURL({
     url: '/room/' + id,
     method: 'post',
-    data,
+    data
   })
 }
 
-export function delAllBooking() {
+export function delAllBooking () {
   return baseURL({
     url: '/rooms',
-    method: 'delete',
+    method: 'delete'
   })
 }
 
@@ -52,18 +52,24 @@ export function delAllBooking() {
 //     }
 // )
 //
-// baseURL.interceptors.response.use(
-//     function(response) {
-//         const res = response.data
-//         if (response.status === 200) {
-//             if (res.code === 200) return res
-//             alert(res.message)
-//             return res
-//         }
-//         alert(response.statusText || 'Error')
-//         return response
-//     },
-//     function(error) {
-//         return Promise.reject(error)
-//     }
-// )
+baseURL.interceptors.response.use(
+  function (response) {
+    
+    const res = response.data
+    if (response.status === 200) {
+      if (res.success) return res
+      alert(res.message)
+      return res
+    }
+    // alert(response.statusText || 'Error')
+    // return response
+  },
+  function (error) {
+    // console.log(error.response,'fewfowekfpowef')
+    // if(error.response.status === 400){
+    //   alert(error.response.data.message)
+    //
+    // }
+    return Promise.reject(error)
+  }
+)

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import './index.scss'
-import { format } from 'date-fns'
 
 function Input (props) {
   const [flag, setFlag] = useState(false)

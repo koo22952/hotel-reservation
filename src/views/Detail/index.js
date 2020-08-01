@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { Link, useParams } from 'react-router-dom'
 import withDetail from '../../service/Detail'
 import './index.scss'
 
@@ -15,12 +15,11 @@ function Detail (props) {
     handleInputChange,
     bookingInfo,
     room,
-    location,
-    match
+    roomsInfo
   } = props
 
-  const {params} = match
-  const {roomsInfo} = location.state
+  const params = useParams()
+
   const GuestLimit = room.descriptionShort?.GuestMax === room.descriptionShort?.GuestMin ? room.descriptionShort?.GuestMax : room.descriptionShort?.GuestMin
     + '~' +
     room.descriptionShort?.GuestMax
@@ -38,7 +37,9 @@ function Detail (props) {
                 <div
                   className="detail-left-pic_top"
                   style={{backgroundImage: `url(${room.imageUrl[0]})`}}
-                />
+                >
+                  <span><i className="material-icons">keyboard_arrow_right</i></span>
+                </div>
                 <div className="detail-left-pic_down">
                   <span style={{backgroundImage: `url(${room.imageUrl[1]})`}}/>
                   <span style={{backgroundImage: `url(${room.imageUrl[2]})`}}/>
@@ -49,8 +50,18 @@ function Detail (props) {
         <div className="detail-right">
           <div className="detail-right-rooms">
             {roomsInfo.map((room) => {
+
               if (room.id == params.roomId) return
-              return <span key={room.id}>{room.name}</span>
+              return (
+                <Link
+                  to={{
+                    pathname: `/detail/${room.id}`,
+                    state: {roomsInfo}
+                  }}
+                  key={room.id}
+                >
+                  <span key={room.id}>{room.name}</span>
+                </Link>)
             })}
           </div>
           <div className="detail-right-roomInfo">

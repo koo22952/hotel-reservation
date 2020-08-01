@@ -36,6 +36,24 @@
       &_top {
         height: 85%;
         margin-bottom: 3px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+        > span {
+          display: block;
+          border-radius: 50%;
+          width: 49px;
+          text-align: center;
+          background-color: $bg-primary;
+          margin: 23px 16px;
+
+          > i {
+            margin: auto;
+            font-size: 36px;
+            line-height: 49px;
+          }
+        }
       }
 
       &_down {
@@ -67,6 +85,11 @@
       padding-right: 7px;
       padding-left: 2px;
       justify-content: space-between;
+
+      > a {
+        color: $text-color;
+
+      }
     }
 
     &-roomInfo {

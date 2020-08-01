@@ -1,5 +1,5 @@
 import React from 'react'
-import { bookingRoom, getOneRoom } from '../api'
+import { bookingRoom, getOneRoom, getAllRooms } from '../api'
 import { format } from 'date-fns'
 
 function withDetail (Component) {
@@ -7,6 +7,7 @@ function withDetail (Component) {
     state = {
       room: [],
       booking: [],
+      roomsInfo: [],
       bookingInfo: {person: '', phone: '', date: []},
       startDate: null,
       endDate: null,
@@ -33,7 +34,7 @@ function withDetail (Component) {
     fetchGetOneRoom = async (id) => {
       try {
         const res = await getOneRoom(id)
-        const {booking, room, success} = res.data
+        const {booking, room, success} = res
 
         let key = Object.keys(room[0].amenities)
         let val = Object.values(room[0].amenities)
@@ -50,10 +51,19 @@ function withDetail (Component) {
           booking
         })
       } catch (err) {
-        console.error(err)
+        alert(err.response.data.message)
+        this.props.history.push('/home')
       }
     }
-
+    fetchGetAllRoom = async () => {
+      await getAllRooms().then((resp) => {
+        if (resp.success) {
+          this.setState({
+            roomsInfo: resp.items
+          })
+        }
+      })
+    }
     handleDateChange = (val, checkInOut) => {
       const formatDate = format(val, 'yyyy-MM-dd')
 
@@ -82,9 +92,19 @@ function withDetail (Component) {
       })
     }
 
+    componentDidUpdate (prevProps) {
+      const {params} = this.props.match
+      const {params: prevParams} = prevProps.match
+
+      if (params.roomId !== prevParams.roomId) {
+        this.fetchGetOneRoom(params.roomId)
+      }
+
+    }
+
     componentDidMount () {
       const {params} = this.props.match
-
+      this.fetchGetAllRoom()
       this.fetchGetOneRoom(params.roomId)
 
       // getOneRoom(params.roomId).then((res) => {

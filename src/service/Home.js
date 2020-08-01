@@ -1,22 +1,23 @@
 import React from 'react'
 import { getAllRooms } from '../api'
 
-function withHome(Component) {
+function withHome (Component) {
   return class extends React.Component {
     state = {
-      roomsInfo: [],
+      roomsInfo: []
     }
-    componentWillMount() {
-      getAllRooms().then(({ data }) => {
-        if (data.success) {
+
+    componentWillMount () {
+      getAllRooms().then((resp) => {
+        if (resp.success) {
           this.setState({
-            roomsInfo: data.items,
+            roomsInfo: resp.items
           })
         }
       })
     }
 
-    render() {
+    render () {
       return <Component {...this.state} {...this.props} />
     }
   }
