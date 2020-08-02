@@ -27,9 +27,6 @@ function Detail (props) {
     + '~' +
     room.descriptionShort?.GuestMax
 
-  console.log(bookingInfo)
-
-
   return (
     <div className="detail">
       <div className="detail-wrapper">

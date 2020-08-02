@@ -16,7 +16,6 @@ function Input (props) {
 
   const {type, handleInputChange, value} = props
 
-  console.log(value)
 
   return (
     <FormControl
