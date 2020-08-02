@@ -206,6 +206,14 @@
   }
 
 
+  #modal-open {
+    display: block;
+  }
+
+  #modal-close {
+    display: none;
+  }
+
   .modal {
     position: fixed;
     z-index: 1300;
@@ -232,6 +240,7 @@
       justify-content: center;
 
       .modal-content {
+        position: relative;
         height: 100%;
         width: 100%;
         max-width: 610px;
@@ -240,6 +249,100 @@
         margin: 32px;
         padding: 31px 50px;
         background-color: $bg-primary;
+        font-size: 20px;
+        text-align: center;
+
+        > h3 {
+          text-align: center;
+          font-size: 40px;
+          line-height: 53px;
+          color: $text-color2;
+          padding-bottom: 8px;
+          border-bottom: 1px solid $text-remind;
+        }
+
+        &-meg {
+          padding: 20px 0;
+          color: $text-color2;
+          border-bottom: 3px solid $text-remind;
+          width: 100%;
+          max-width: 85%;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
+
+          > div {
+            > p {
+              display: flex;
+              align-items: center;
+
+              &:first-child {
+                margin-bottom: 10px;
+              }
+
+              > span {
+                padding: 9px 21px;
+                font-size: $font-size;
+                color: $text-remind;
+                border: 1px solid $text-remind;
+                margin-right: 10px;
+              }
+            }
+
+          }
+        }
+
+        &-total {
+          color: $text-color2;
+          font-weight: bold;
+          width: 100%;
+          max-width: 68%;
+          margin: 16.5px auto 0;
+          text-align: right;
+        }
+
+        &-total {
+          color: $text-color2;
+          font-weight: bold;
+          width: 100%;
+          max-width: 68%;
+          margin: 16.5px auto 0;
+          text-align: right;
+        }
+
+        &-check {
+          width: 100%;
+          max-width: 140px;
+          height: 52px;
+          background-color: $text-remind;
+          color: $bg-primary;
+          border-radius: 0;
+          border: 0;
+          font-size: 15px;
+          margin-top: 52px;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .modal-close {
+          position: absolute;
+          bottom: 29px;
+          right: 25px;
+          width: 49px;
+          border-radius: 50%;
+          background-color: $text-remind;
+          z-index: 101;
+          color: $bg-primary;
+          cursor: pointer;
+
+
+          > i {
+            line-height: 49px;
+          }
+        }
       }
     }
   }

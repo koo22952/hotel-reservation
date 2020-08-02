@@ -4,6 +4,7 @@ import withDetail from '../../service/Detail'
 import './index.scss'
 import DatePicker from '../../components/DatePicker'
 import Input from '../../components/Input'
+import { eachDayOfInterval, format } from 'date-fns'
 
 function Detail (props) {
   const {
@@ -13,10 +14,11 @@ function Detail (props) {
     handleDateChange,
     handleInputChange,
     bookingInfo,
+    bookingDate,
     room,
     roomsInfo,
-    booking,
-    bookingDate
+    handleModal,
+    checkBookingModal
   } = props
 
   const params = useParams()
@@ -24,6 +26,9 @@ function Detail (props) {
   const GuestLimit = room.descriptionShort?.GuestMax === room.descriptionShort?.GuestMin ? room.descriptionShort?.GuestMax : room.descriptionShort?.GuestMin
     + '~' +
     room.descriptionShort?.GuestMax
+
+  console.log(bookingInfo)
+
 
   return (
     <div className="detail">
@@ -33,7 +38,7 @@ function Detail (props) {
             <Link to="/home">WHITE INN</Link>
           </h2>
           {
-            room.imageUrl == undefined ? null : (
+            room.imageUrl && (
               <div className="detail-left-pic">
                 <div
                   className="detail-left-pic_top"
@@ -118,12 +123,12 @@ function Detail (props) {
                     bookedDate={bookingDate}
                   />
                 </div>
-                <button className="room-reservation-check">預約</button>
+                <button className="room-reservation-check" onClick={handleModal}>預約</button>
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
-              {room.amenities !== undefined
-                ? room.amenities.map((d, i) => {
+              {
+                room.amenities && room.amenities.map((d, i) => {
                   let icon = ''
                   d.isHave
                     ? (icon = 'check_box')
@@ -136,32 +141,75 @@ function Detail (props) {
                       </span>
                   )
                 })
-                : null}
+              }
             </div>
           </div>
         </div>
       </div>
-      <Modal {...props}/>
+      <Modal variable={checkBookingModal} {...props}/>
     </div>
   )
 }
 
 const Modal = (props) => {
+
+  const {variable = false, handleModal, handleModalCheck, startDate, endDate, room} = props
+  let normalDayCount = 0
+  let holidayCount = 0
+  let tPrice = 0
+
+  if (variable && startDate && endDate) {
+    let intervalDay = ''
+    let lastDay = ''
+    let tCount = 0
+
+    intervalDay = eachDayOfInterval({
+      start: startDate,
+      end: endDate
+    })
+    tCount = intervalDay.length
+
+    lastDay = format(intervalDay[intervalDay.length - 1], 'EE')
+
+    lastDay === 'Sat' || lastDay === 'Sun' ? holidayCount-- : normalDayCount--
+
+    holidayCount = intervalDay.filter(day => {
+      const dayKind = format(day, 'EE')
+      return dayKind === 'Sat' || dayKind === 'Sun'
+    }).length
+
+    normalDayCount = normalDayCount + tCount - holidayCount
+
+    tPrice = normalDayCount * room.normalDayPrice + holidayCount * room.holidayPrice
+  }
+
   return (
-    <div className='modal'>
+    <div id={variable ? 'modal-open' : 'modal-close'} className='modal'>
       <div className='modal-bg'/>
       <div className='modal-wrapper'>
         <div className='modal-content'>
           <h3>Single Room</h3>
-          <div></div>
+          <div className='modal-content-meg'>
+            <div>
+              <p><span>入住</span>{startDate && `${format(startDate, 'yyyy/MM/dd EEEE')}（15:00 起）`}</p>
+              <p><span>退房</span>{endDate && `${format(endDate, 'yyyy/MM/dd EEEE')}（11:00 前）`}</p>
+            </div>
+          </div>
+          <div className='modal-content-total'>{`${normalDayCount + holidayCount}`} 晚 / {tPrice} 元</div>
+          <button className='modal-content-check' onClick={handleModalCheck}>確定</button>
+          <div className='modal-close' onClick={handleModal}>
+            <i className="material-icons">
+              close
+            </i>
+          </div>
+
         </div>
       </div>
     </div>
   )
 }
+
 export default withDetail(Detail)
-
-
 
 
 
