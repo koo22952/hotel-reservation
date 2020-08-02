@@ -16,6 +16,8 @@ function Input (props) {
 
   const {type, handleInputChange, value} = props
 
+  console.log(value)
+
   return (
     <FormControl
       id="room-reservation-input"
@@ -28,7 +30,7 @@ function Input (props) {
         variant="outlined"
         onFocus={onFocus}
         onBlur={onBlur}
-        defaultValue={value}
+        value={value}
         onChange={(e) => handleInputChange(e, type)}
       />
       {flag || value ? null : (
