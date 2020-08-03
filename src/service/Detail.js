@@ -14,7 +14,10 @@ function withDetail (Component) {
       startDate: null,
       endDate: null,
       minDate: null,
-      checkBookingModal: false
+      checkBookingModal: false,
+      chooseModalOpen: '',
+      chooseModalOpenImg: null
+
     }
 
     fetchBookingRoom = async () => {
@@ -104,9 +107,12 @@ function withDetail (Component) {
       })
     }
 
-    handleModal = () => {
+    handleModal = (type, url = null) => {
+
       this.setState({
-        checkBookingModal: !this.state.checkBookingModal
+        checkBookingModal: !this.state.checkBookingModal,
+        chooseModalOpen: type,
+        chooseModalOpenImg: url
       })
     }
 
@@ -130,8 +136,8 @@ function withDetail (Component) {
       })
     }
 
-    handleImgChange = () => {
-
+    handleImgChange = (e) => {
+      e.stopPropagation()
       const {room} = this.state
       let img = []
 

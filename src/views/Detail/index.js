@@ -11,7 +11,6 @@ function Detail (props) {
     startDate,
     endDate,
     minDate,
-
     bookingInfo,
     bookingDate,
     room,
@@ -40,14 +39,15 @@ function Detail (props) {
             room.imageUrl && (
               <div className="detail-left-pic">
                 <div
+                  onClick={() => {handleModal('img', room.imageUrl[0])}}
                   className="detail-left-pic_top"
                   style={{backgroundImage: `url(${room.imageUrl[0]})`}}
                 >
                   <span onClick={handleImgChange}><i className="material-icons">keyboard_arrow_right</i></span>
                 </div>
                 <div className="detail-left-pic_down">
-                  <span style={{backgroundImage: `url(${room.imageUrl[1]})`}}/>
-                  <span style={{backgroundImage: `url(${room.imageUrl[2]})`}}/>
+                  <span onClick={() => {handleModal('img', room.imageUrl[1])}} style={{backgroundImage: `url(${room.imageUrl[1]})`}}/>
+                  <span onClick={() => {handleModal('img', room.imageUrl[2])}} style={{backgroundImage: `url(${room.imageUrl[2]})`}}/>
                 </div>
               </div>)
           }
@@ -122,7 +122,7 @@ function Detail (props) {
                     bookedDate={bookingDate}
                   />
                 </div>
-                <button className="room-reservation-check" onClick={handleModal}>預約</button>
+                <button className="room-reservation-check" onClick={() => handleModal('reservation')}>預約</button>
               </div>
             </div>
             <div className="detail-right-roomInfo_roomDevice">
@@ -152,7 +152,7 @@ function Detail (props) {
 
 const Modal = (props) => {
 
-  const {variable = false, handleModal, handleModalCheck, startDate, endDate, room} = props
+  const {variable = false, handleModal, handleModalCheck, startDate, endDate, room, chooseModalOpen, chooseModalOpenImg} = props
   let normalDayCount = 0
   let holidayCount = 0
   let tPrice = 0
@@ -185,23 +185,32 @@ const Modal = (props) => {
     <div id={variable ? 'modal-open' : 'modal-close'} className='modal'>
       <div className='modal-bg'/>
       <div className='modal-wrapper'>
-        <div className='modal-content'>
-          <h3>Single Room</h3>
-          <div className='modal-content-meg'>
-            <div>
-              <p><span>入住</span>{startDate && `${format(startDate, 'yyyy/MM/dd EEEE')}（15:00 起）`}</p>
-              <p><span>退房</span>{endDate && `${format(endDate, 'yyyy/MM/dd EEEE')}（11:00 前）`}</p>
-            </div>
-          </div>
-          <div className='modal-content-total'>{`${normalDayCount + holidayCount}`} 晚 / {tPrice} 元</div>
-          <button className='modal-content-check' onClick={handleModalCheck}>確定</button>
+
+
+        <div className={`modal-content ${chooseModalOpen === 'reservation' ? 'modal-reservation' : 'modal-img'}`}>
+
+          {
+            chooseModalOpen === 'reservation' ? <>
+              <h3>Single Room</h3>
+              <div className='modal-content-meg'>
+                <div>
+                  <p><span>入住</span>{startDate && `${format(startDate, 'yyyy/MM/dd EEEE')}（15:00 起）`}</p>
+                  <p><span>退房</span>{endDate && `${format(endDate, 'yyyy/MM/dd EEEE')}（11:00 前）`}</p>
+                </div>
+              </div>
+              <div className='modal-content-total'>{`${normalDayCount + holidayCount}`} 晚 / {tPrice} 元</div>
+              <button className='modal-content-check' onClick={handleModalCheck}>確定</button>
+            </> : <img src={chooseModalOpenImg}/>
+          }
+
           <div className='modal-close' onClick={handleModal}>
             <i className="material-icons">
               close
             </i>
           </div>
-
         </div>
+
+
       </div>
     </div>
   )

@@ -208,7 +208,8 @@
 
 
   #modal-open {
-    display: block;
+    display: flex;
+    justify-content: center;
   }
 
   #modal-close {
@@ -235,17 +236,17 @@
     }
 
     &-wrapper {
-      height: 100%;
+      height: 100vh;
+      width: 100vw;
       display: flex;
       align-items: center;
       justify-content: center;
 
+
       .modal-content {
         position: relative;
-        height: 100%;
-        width: 100%;
-        max-width: 610px;
-        max-height: 400px;
+        height: auto;
+        width: auto;
         z-index: 100;
         margin: 32px;
         padding: 31px 50px;
@@ -345,6 +346,32 @@
           }
         }
       }
+
+      .modal-reservation {
+        height: 100%;
+        width: 100%;
+        max-width: 610px;
+        max-height: 400px;
+      }
+
+      .modal-img {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0);
+
+        > img {
+          max-width: 90vw;
+          max-height: 80vh;
+        }
+
+        & .modal-close {
+          position: absolute;
+          background-color: $bg-primary;
+          color: $text-remind;
+        }
+      }
+
     }
   }
 
