@@ -6,7 +6,7 @@ function withDetail (Component) {
   return class extends React.Component {
     state = {
       roomId: '',
-      room: [],
+      room: {},
       booking: [],
       bookingDate: [],
       roomsInfo: [],
@@ -130,6 +130,25 @@ function withDetail (Component) {
       })
     }
 
+    handleImgChange = () => {
+
+      const {room} = this.state
+      let img = []
+
+      for (let i = 0, j; i < room.imageUrl.length; i++) {
+        j = i
+        img.push(room.imageUrl[(j + 1) % 3])
+      }
+
+      this.setState({
+        room: {
+          ...this.state.room,
+          imageUrl: img
+        }
+      })
+
+    }
+
     initState = (fn) => {
       const {params} = this.props.match
 
@@ -170,6 +189,7 @@ function withDetail (Component) {
           handleDateChange={this.handleDateChange}
           handleModal={this.handleModal}
           handleModalCheck={this.handleModalCheck}
+          handleImgChange={this.handleImgChange}
           {...this.state}
           {...this.props}
         />

@@ -11,14 +11,16 @@ function Detail (props) {
     startDate,
     endDate,
     minDate,
-    handleDateChange,
-    handleInputChange,
+
     bookingInfo,
     bookingDate,
     room,
     roomsInfo,
+    checkBookingModal,
+    handleDateChange,
+    handleInputChange,
     handleModal,
-    checkBookingModal
+    handleImgChange
   } = props
 
   const params = useParams()
@@ -41,7 +43,7 @@ function Detail (props) {
                   className="detail-left-pic_top"
                   style={{backgroundImage: `url(${room.imageUrl[0]})`}}
                 >
-                  <span><i className="material-icons">keyboard_arrow_right</i></span>
+                  <span onClick={handleImgChange}><i className="material-icons">keyboard_arrow_right</i></span>
                 </div>
                 <div className="detail-left-pic_down">
                   <span style={{backgroundImage: `url(${room.imageUrl[1]})`}}/>
@@ -168,14 +170,13 @@ const Modal = (props) => {
 
     lastDay = format(intervalDay[intervalDay.length - 1], 'EE')
 
-    lastDay === 'Sat' || lastDay === 'Sun' ? holidayCount-- : normalDayCount--
-
     holidayCount = intervalDay.filter(day => {
       const dayKind = format(day, 'EE')
       return dayKind === 'Sat' || dayKind === 'Sun'
     }).length
 
     normalDayCount = normalDayCount + tCount - holidayCount
+    lastDay === 'Sat' || lastDay === 'Sun' ? holidayCount-- : normalDayCount--
 
     tPrice = normalDayCount * room.normalDayPrice + holidayCount * room.holidayPrice
   }
